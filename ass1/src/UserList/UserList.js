@@ -9,6 +9,14 @@ class UserList extends Component {
             data: [],
             number_user: 0
         };
+
+        axios.post('https://reqres.in/api/users',{
+            email: "xxx@gmail.com",
+            firstName: "An",
+            lastName: "Duy",
+        }).then(function (response) {
+            console.log(response);
+          })
     };
 
     componentDidMount = () =>{
