@@ -6,13 +6,24 @@ class UserList extends Component {
         super();
         this.state = {
             hasGet: false,
-            data: []
+            data: [],
+            number_user: 0
         };
     };
 
     componentDidMount = () =>{
-        axios.get("https://reqres.in/api/users").then(response =>{
-            console.log(response);
+        axios.get("/users").then(response =>{
+            if(response.data.data) {
+                this.setState(
+                    {
+                        hasGet: false,
+                        data: response.data.data,
+                        number_user: 0
+                    }
+                )
+                console.log(this.state.data[0].id);
+            }
+            
         })
     };
 
@@ -20,7 +31,10 @@ class UserList extends Component {
         return ( 
             <div>
                 {/* <Button> Get user lists </Button> */}
-                <h1> No user list </h1>
+                <h1> {this.state.number_user} user </h1>
+                <ul>
+                    {this.state.data.map((user) => <li key ={user.id}> {user.email}</li>)}
+                </ul>
             </div>
          );
     }

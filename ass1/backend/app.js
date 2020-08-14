@@ -12,8 +12,8 @@ app.get('/users', (req, res) => {
     request('https://reqres.in/api/users', function(error, response, body){
       if(!error && response.statusCode == 200){
         var parseBody = JSON.parse(body)
-        var number_user = parseBody["total"]
-        res.send(number_user)
+        var data = parseBody["data"]
+        res.json({data})
       }
     }
 )})
