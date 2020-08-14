@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-
+import UserCard from "../UserCard/UserCard"
 class UserList extends Component {
     constructor(){
         super();
@@ -21,7 +21,7 @@ class UserList extends Component {
                         number_user: 0
                     }
                 )
-                console.log(this.state.data[0].id);
+                console.log(this.state.data[0].avatar);
             }
             
         })
@@ -33,7 +33,7 @@ class UserList extends Component {
                 {/* <Button> Get user lists </Button> */}
                 <h1> {this.state.number_user} user </h1>
                 <ul>
-                    {this.state.data.map((user) => <li key ={user.id}> {user.email}</li>)}
+                    {this.state.data.map((user) => <li key ={user.id}><UserCard props={user}></UserCard></li>)}
                 </ul>
             </div>
          );
