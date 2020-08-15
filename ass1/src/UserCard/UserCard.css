@@ -1,0 +1,7 @@
+.card-container{
+    display: flex;
+    width: 40%;
+    flex:2;
+    background-color:#ad5050;
+    /* color: "red"*/
+}

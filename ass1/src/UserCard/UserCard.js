@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './UserCard.css';
 class UserCard extends Component {
     constructor(props){
         super();
@@ -13,9 +14,10 @@ class UserCard extends Component {
         console.log(this.state)
     };
 
+
     render() { 
         return ( 
-            <div>
+            <div className = "card-container" >
                 <p> {this.state.id}</p>
                 <img src = {this.state.avatar}></img>
                 <p>{this.state.firstName}</p>
