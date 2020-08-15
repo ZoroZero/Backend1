@@ -1,7 +1,7 @@
 import React from 'react';
 import UserList from './UserList/UserList';
 import './App.css';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 

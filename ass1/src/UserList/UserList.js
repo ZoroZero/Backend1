@@ -9,7 +9,7 @@ class UserList extends Component {
             hasGet: false,
             userList: [],
             rows: [],
-            number_user: 0
+            number_user: 0,
         };
 
         // axios.post('https://reqres.in/api/users',{
@@ -27,7 +27,7 @@ class UserList extends Component {
                 
                 this.setState(
                     {
-                        hasGet: false,
+                        hasGet: true,
                         userList: response.data.data,
                         number_user: 0
                     }
@@ -54,10 +54,6 @@ class UserList extends Component {
                         <div className ="Col"><UserCard id ={user.id} props={user}></UserCard></div>)}
                 </div>
             )}
-                {/* // <ul className ="list-container" style={{flex: 1, flexDirection: 'row', width: '100%'}} >
-                //     {this.state.userList.map((user) => <UserCard id ={user.id} props={user}></UserCard>)}
-                // </ul>
-                // } */}
             </div>
          );
     }
