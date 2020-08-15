@@ -1,5 +1,3 @@
-#list-container{
-    flex: 1;
-    /* //flexDirection: 'row'; */
-    height: 400
+.Col{
+    width: 20vw;
 }

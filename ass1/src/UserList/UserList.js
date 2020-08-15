@@ -7,30 +7,39 @@ class UserList extends Component {
         super();
         this.state = {
             hasGet: false,
-            data: [],
+            userList: [],
+            rows: [],
             number_user: 0
         };
 
-        axios.post('https://reqres.in/api/users',{
-            email: "xxx@gmail.com",
-            firstName: "An",
-            lastName: "Duy",
-        }).then(function (response) {
-            console.log(response);
-          })
+        // axios.post('https://reqres.in/api/users',{
+        //     email: "xxx@gmail.com",
+        //     firstName: "An",
+        //     lastName: "Duy",
+        // }).then(function (response) {
+        //     console.log(response);
+        //   })
     };
 
     componentDidMount = () =>{
         axios.get("/users").then(response =>{
             if(response.data.data) {
+                
                 this.setState(
                     {
                         hasGet: false,
-                        data: response.data.data,
+                        userList: response.data.data,
                         number_user: 0
                     }
                 )
-                console.log(this.state.data[0].avatar);
+                var rows = []
+                for(var i = 0; i < this.state.userList.length/4; i++){
+                    rows.push(this.state.userList.slice(i*4, (i+1)*4))
+                }
+                this.setState({
+                    rows: rows
+                })
+                console.log(this.state.rows)
             }
             
         })
@@ -39,11 +48,16 @@ class UserList extends Component {
     render() { 
         return ( 
             <div >
-                {/* <Button> Get user lists </Button> */}
-                <h1> {this.state.number_user} user </h1>
-                <ul className ="list-container" style={{flex: 1, flexDirection: 'row', width: '100%'}} >
-                    {this.state.data.map((user) => <UserCard id ={user.id} props={user}></UserCard>)}
-                </ul>
+            {this.state.rows.map(row =>
+                <div className ="Row" gutter={40}>
+                    {(row).map(user => 
+                        <div className ="Col"><UserCard id ={user.id} props={user}></UserCard></div>)}
+                </div>
+            )}
+                {/* // <ul className ="list-container" style={{flex: 1, flexDirection: 'row', width: '100%'}} >
+                //     {this.state.userList.map((user) => <UserCard id ={user.id} props={user}></UserCard>)}
+                // </ul>
+                // } */}
             </div>
          );
     }

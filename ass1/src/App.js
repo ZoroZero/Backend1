@@ -1,14 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import UserList from './UserList/UserList';
-
 import './App.css';
+import { Layout, Menu } from 'antd';
+const { Header, Content, Footer } = Layout;
+
 
 function App() {
   return (
-    <div className="App">
-      <UserList></UserList>
-    </div>
+      <Layout className="App">
+      <Header>
+        <img src ="logo.jpg" className ="logo"></img>
+        <b>Assignment 1</b>
+      </Header>
+
+      <Content>
+        <UserList></UserList>
+      </Content>
+
+      <Footer>Footer</Footer>
+    </Layout>
+      
   );
 }
 

@@ -1,7 +1,8 @@
 .card-container{
-    display: flex;
-    width: 40%;
-    flex:2;
-    background-color:#ad5050;
+    width: 80%;
+    height: 30vh;
+    background-color:snow;
+    border: 1px #111111 solid;
+    margin: 5vh 0 5vh 0,
     /* color: "red"*/
 }
