@@ -25,16 +25,6 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.pop-up-screen{
-    background-color: rgba(0, 0, 0, 0.26);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    z-index: 1;
-}
-
 .card-container .delete-btn{
     background-color: red;
     width: 30%;

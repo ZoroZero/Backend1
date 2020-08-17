@@ -50,19 +50,23 @@ class PopUp extends Component {
             alert("Empty field detected")
             return;
         }
-        this.props.update(this.state.user.id, firstName, lastName, email);
+        // this.props.update(this.state.user.id, firstName === ""? firstName: this.state.user.first_name, lastName === "" ? lastName: this.state.user.last_name, 
+        // email ==="" ? email: this.state.user.email);
+        this.props.update(this.state.user.id, firstName, lastName, email)
         this.handleClick();
     }
 
     render() { 
         return ( 
             <div className = "pop-up-container" ref={this.wrapperRef}>
-                <img  src = {this.state.user.avatar ? this.state.user.avatar : "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg"}></img>
+                <Button className="close" onClick = {(e) => {e.stopPropagation(); this.handleClick()}}>&times;</Button>
+                <img  src = {this.state.user.avatar ? this.state.user.avatar : "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg"} alt="Not found"></img>
                 <p>{this.state.user.first_name + ' ' + this.state.user.last_name}</p>
                 <p>{this.state.user.email}</p>
-                <input type="text" id="newFName" name="fname" placeholder="Firstname"/>
-                <input type="text" id="newLName" name="lname"  placeholder="Lastname"/>
-                <input type="text" id="newEmail" name="email"  placeholder="Email"/>
+                <label>First name</label><input type="text" id="newFName" name="fname" placeholder={this.state.user.first_name +""}/>
+                
+                <label>Last name</label><input type="text" id="newLName" name="lname"  placeholder={this.state.user.last_name+ ''}/>
+                <label>Email</label><input type="text" id="newEmail" name="email"  placeholder={this.state.user.email+ ''}/>
                 <Button onClick={this.handleUpdateClick}>Update</Button>
             </div>
          );

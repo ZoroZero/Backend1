@@ -64,34 +64,36 @@ class UserList extends Component {
             last_name: lastName,
             email: email
         }
-        axios.post('https://reqres.in/api/users', {
-            first_name: firstName,
-            last_name: lastName,
-            email: email
-        })
+        axios.post('https://reqres.in/api/users', data
+        )
         .then((response) => {
-            console.log(response.data);
-            const newUser ={
-                id: response.data.id,
-                email: response.data.email,
-                first_name: response.data.first_name,
-                last_name: response.data.last_name,
-                avatar: response.data.avatar,
-            }
-            console.log(this.state.rows.length)
-            console.log(newUser)
-            // Add new user
-            var newUserList = this.state.userList;
-            newUserList.push(newUser)
+            if(response.data){
+                console.log(response.data);
+                const newUser ={
+                    id: response.data.id,
+                    email: response.data.email,
+                    first_name: response.data.first_name,
+                    last_name: response.data.last_name,
+                    avatar: response.data.avatar,
+                }
+                console.log(this.state.rows.length)
+                console.log(newUser)
+                // Add new user
+                var newUserList = this.state.userList;
+                newUserList.push(newUser)
 
-            // Change row
-            var newRows = []
-            for(var i = 0; i < this.state.userList.length/4; i++){
-                newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                // Change row
+                var newRows = []
+                for(var i = 0; i < this.state.userList.length/4; i++){
+                    newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                }
+                this.setState({
+                    rows: newRows
+                })
+                
+                // Close add window
+                document.getElementById("modal").style.display = "none";
             }
-            this.setState({
-                rows: newRows
-        })
         })
         .catch(function(error) {
             console.log(error);
@@ -175,17 +177,16 @@ class UserList extends Component {
                 <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
                 <input type="text" id="email" name="email"  placeholder="Email"/> */}
                 
-                    <Button className="add-new-user-btn" href="#popup1">Add new user</Button>
+                    <Button className="add-new-user-btn" onClick = {() => {document.getElementById("modal").style.display = "block";}}><b>Add new user</b></Button>
                 
-                    <div id="popup1" class="overlay">
-                        <div class="popup">
-                            <h2>Here i am</h2>
-                            <Button class="close" href="#">&times;</Button>
-                            <div class="content">
-                            <input type="text" id="fname" name="fname" placeholder="Firstname"/>
-                            <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
-                            <input type="text" id="email" name="email"  placeholder="Email"/>
-                            <Button className="add-user-btn" onClick={this.handleAdd} href="#">Add</Button>
+                    <div id="modal" className="modal">
+                        <div className="popup">
+                            <Button className="close" onClick = {() => {document.getElementById("modal").style.display = "none";}}>&times;</Button>
+                            <div className="content">
+                                <input type="text" id="fname" name="fname" placeholder="Firstname"/>
+                                <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
+                                <input type="text" id="email" name="email"  placeholder="Email"/>
+                                <Button className="add-user-btn" onClick={this.handleAdd} href="#">Add</Button>
                             </div>
                         </div>
                     </div>
