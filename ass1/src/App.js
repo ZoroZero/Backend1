@@ -2,7 +2,9 @@ import React from 'react';
 import UserList from './UserList/UserList';
 import './App.css';
 import { Layout } from 'antd';
+import 'antd/dist/antd.css';
 const { Header, Content, Footer } = Layout;
+
 
 
 function App() {
@@ -14,10 +16,13 @@ function App() {
       </Header>
 
       <Content>
+        <div className = "content">
+          {/* <AddUserSection></AddUserSection> */}
         <UserList></UserList>
+        </div>
       </Content>
 
-      <Footer>Footer</Footer>
+      <Footer theme="dark">an.ngo@netpower.no</Footer>
     </Layout>
       
   );

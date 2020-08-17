@@ -12,14 +12,16 @@
 
 .avatar{
     float: left;
-    max-width: 50%;
-    max-height: 50%;
+    max-width: 70%;
+    max-height: 70%;
     border-radius: 50%;
     margin-right: 5%;
 }
 
 .name{
-    font-size: 1.4rem;
+    width: 100%;
+    height: 1.6rem;
+    font-size: 1.6rem;
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -33,7 +35,7 @@
     z-index: 1;
 }
 
-.delete-btn{
+.card-container .delete-btn{
     background-color: red;
     width: 30%;
     height: 25%;
@@ -44,6 +46,7 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.delete-btn:hover{
+.card-container .delete-btn:hover{
     background-color: rgb(97, 0, 0);
+    color: white;
 }

@@ -52,9 +52,10 @@ Header{
 Content{
   height: 100%;
   display: flex;
+  margin: 1vh 0 1vh 0;
 }
 
-Footer{
+footer{
   height: 30px;
   color: whitesmoke;
   background-color: black;
@@ -67,6 +68,16 @@ Footer{
   display: flex;
   align-items: center; 
   color: white; 
+}
+
+.content{
+  margin: 2%;
+  background-color: white;
+  padding: 2%
+}
+
+Header b{
+  color: white;
 }
 
 @keyframes App-logo-spin {

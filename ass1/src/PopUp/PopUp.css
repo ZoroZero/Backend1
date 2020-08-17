@@ -6,4 +6,22 @@
     left: 25%;
     top: 25%;
     z-index:2;
+    display: flex;
+	align-items: center;
+    justify-content: center;
+    flex-direction: column;
+	padding: 0 50px;
+    text-align: center;
+}
+
+.pop-up-container img{
+    margin: 5px;
+}
+
+.pop-up-container input{
+    background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+    width: 30%;
 }
