@@ -40,7 +40,9 @@ class UserCard extends Component {
     render() { 
         return ( 
             <div className = "card-container">
+                
                 <img src = {this.state.avatar ? this.state.avatar : "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg" } className = "avatar" alt="Not found"></img>
+                
                 <b className = "name">{this.state.firstName + ' ' + this.state.lastName}</b>
                 <p className = "email">{this.state.email}</p>
                 <Button className = "edit-btn" onClick={(e) => {e.stopPropagation(); this.handleClick()}}>Edit</Button>

@@ -2,7 +2,7 @@
     background-color: snow;
     position: absolute;
     width: 50%;
-    height: 60%;
+    height: 70%;
     left: 25%;
     top: 10%;
     z-index:2;
@@ -15,6 +15,7 @@
 }
 
 .pop-up-container img{
+    max-width: 20%;
     margin: 5px;
 }
 

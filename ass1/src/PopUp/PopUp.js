@@ -42,20 +42,23 @@ class PopUp extends Component {
     };
 
 
+    // When click update
     handleUpdateClick =() =>{
         var firstName = document.getElementById("newFName").value;
         var lastName = document.getElementById("newLName").value;
         var email = document.getElementById("newEmail").value;
+        var avatar = document.getElementById("newAvatar").value;
         if(firstName === "" || lastName === "" || email === ""){
             alert("Empty field detected")
             return;
         }
         // this.props.update(this.state.user.id, firstName === ""? firstName: this.state.user.first_name, lastName === "" ? lastName: this.state.user.last_name, 
         // email ==="" ? email: this.state.user.email);
-        this.props.update(this.state.user.id, firstName, lastName, email)
+        this.props.update(this.state.user.id, firstName, lastName, email, avatar)
         this.handleClick();
     }
 
+    // Render component
     render() { 
         return ( 
             <div className = "pop-up-container" ref={this.wrapperRef}>
@@ -67,6 +70,7 @@ class PopUp extends Component {
                 
                 <label>Last name</label><input type="text" id="newLName" name="lname"  placeholder={this.state.user.last_name+ ''}/>
                 <label>Email</label><input type="text" id="newEmail" name="email"  placeholder={this.state.user.email+ ''}/>
+                <label>Avatar</label><input type="text" id="newAvatar" name="avatar"  placeholder={this.state.user.avatar+ ''}/>
                 <Button onClick={this.handleUpdateClick}>Update</Button>
             </div>
          );

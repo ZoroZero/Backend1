@@ -21,7 +21,6 @@ class UserList extends Component {
     componentDidMount = () =>{
         axios.get("https://reqres.in/api/users").then(response =>{
             if(response.data.data) {
-                
                 this.setState(
                     {
                         hasGet: true,
@@ -55,6 +54,7 @@ class UserList extends Component {
         var firstName = document.getElementById("fname").value;
         var lastName = document.getElementById("lname").value;
         var email = document.getElementById("email").value;
+        var avatar = document.getElementById("avatar").value;
         if(firstName === "" || lastName === "" || email === ""){
             alert("Empty field");
             return;
@@ -62,7 +62,8 @@ class UserList extends Component {
         const data = {
             first_name: firstName,
             last_name: lastName,
-            email: email
+            email: email,
+            avatar: avatar
         }
         axios.post('https://reqres.in/api/users', data
         )
@@ -91,6 +92,11 @@ class UserList extends Component {
                     rows: newRows
                 })
                 
+                // Clear input
+                document.getElementById("fname").value = "";
+                document.getElementById("lname").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("avatar").value = "";
                 // Close add window
                 document.getElementById("modal").style.display = "none";
             }
@@ -102,36 +108,40 @@ class UserList extends Component {
 
 
     // Handle update user info
-    handleUpdateInfo = (id, newFirstName, newLastName, newEmail) => {
+    handleUpdateInfo = (id, newFirstName, newLastName, newEmail, newAvatar) => {
         axios.put('https://reqres.in/api/users', {
             id: id,
             first_name: newFirstName,
             last_name: newLastName,
-            email: newEmail
+            email: newEmail,
+            avatar: newAvatar
         })
         .then((response) => {
-            console.log(response.data);
-            var newData = {
-                id: response.data.id,
-                first_name: response.data.first_name,
-                last_name: response.data.last_name,
-                email: response.data.email
-            }
-            
-            // update data
-            this.setState({
-                userList: this.state.userList.map(user => (user.id === id ? Object.assign({}, user, newData) : user))
-            });
-            
-            // update rows
-            var newRows = []
-                for(var i = 0; i < this.state.userList.length/4; i++){
-                    newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+            if(response.data){
+                console.log(response.data);
+                var newData = {
+                    id: response.data.id,
+                    first_name: response.data.first_name,
+                    last_name: response.data.last_name,
+                    email: response.data.email,
+                    avatar: response.data.avatar
                 }
+                
+                // update data
                 this.setState({
-                    rows: newRows
-            })
-            console.log(this.state.rows)
+                    userList: this.state.userList.map(user => (user.id === id ? Object.assign({}, user, newData) : user))
+                });
+                
+                // update rows
+                var newRows = []
+                    for(var i = 0; i < this.state.userList.length/4; i++){
+                        newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                    }
+                    this.setState({
+                        rows: newRows
+                })
+                console.log(this.state.rows)
+            }
         })
         .catch(function(error) {
             console.log(error);
@@ -186,6 +196,7 @@ class UserList extends Component {
                                 <input type="text" id="fname" name="fname" placeholder="Firstname"/>
                                 <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
                                 <input type="text" id="email" name="email"  placeholder="Email"/>
+                                <input type="text" id="avatar" name="avatar"  placeholder="Avatar link"/>
                                 <Button className="add-user-btn" onClick={this.handleAdd} href="#">Add</Button>
                             </div>
                         </div>
