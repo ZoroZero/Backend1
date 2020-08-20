@@ -28,7 +28,7 @@
 .card-body Button .delete-btn{
     background-color: red;
     width: 30%;
-    height: 25%;
+    /* height: 25%; */
     float: right;
     border: none;
     color: white;
@@ -39,4 +39,94 @@
 .card-container .delete-btn:hover{
     background-color: rgb(97, 0, 0);
     color: white;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .name{
+        width: 100%;
+        height: 1rem;
+        font-size: 1rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .avatar{
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .name{
+        height: 1rem;
+        font-size: 1rem;
+    }
+
+    .card-container{
+        height: 30vh;
+    }
+
+    .card-container .delete-btn{
+        width: 50%;
+        float: right;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .name{
+        height: 1.2rem;
+        font-size: 1.2rem;
+    }
+
+    .card-container{
+        height: 25vh;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .name{
+        height: 1.4rem;
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .card-container{
+        height: 34vh;
+    }
+
+    .avatar{
+        width: 80%;
+        max-width: 100%;
+        max-height: 100%;
+        margin-left: auto;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .name{
+        height: 1.6rem;
+        font-size: 1.6rem;
+    }
+
+    .card-container{
+        height: 15vh;
+    }
+
+    .card-container .delete-btn{
+        width: 30%;
+        float: right;
+    }
+
+    .avatar{
+        width: auto;
+        max-width: 70%;
+        max-height: 70%;
+        margin-right: 5%;
+    }
 }
