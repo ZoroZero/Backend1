@@ -39,14 +39,16 @@ class UserCard extends Component {
 
     render() { 
         return ( 
-            <div className = "card-container">
-                
-                <img src = {this.state.avatar ? this.state.avatar : "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg" } className = "avatar" alt="Not found"></img>
-                
-                <b className = "name">{this.state.firstName + ' ' + this.state.lastName}</b>
-                <p className = "email">{this.state.email}</p>
-                <Button className = "edit-btn" onClick={(e) => {e.stopPropagation(); this.handleClick()}}>Edit</Button>
-                <Button className ="delete-btn" onClick={(e) => {e.stopPropagation(); this.handleDelete()}}>Delete</Button>
+            <div className = "container-fluid card">
+                <img src = {this.state.avatar ? this.state.avatar : "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg" } className = "avatar mt-2" alt="Not found"></img>
+                <div className ="card-body">
+                    <b className = "name">{this.state.firstName + ' ' + this.state.lastName}</b>
+                    <p className = "email">{this.state.email}</p>
+                    <div className = "col-sm-12">
+                        <Button  className = "edit-btn" onClick={(e) => {e.stopPropagation(); this.handleClick()}}>Edit</Button>
+                        <Button type="primary" danger className ="delete-btn" onClick={(e) => {e.stopPropagation(); this.handleDelete()}}>Delete</Button>
+                    </div>
+                </div>
             </div>
          );
     }
@@ -54,4 +56,4 @@ class UserCard extends Component {
     
 }
  
-export default UserCard;
+export default UserCard; 

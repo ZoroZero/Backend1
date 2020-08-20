@@ -1,6 +1,6 @@
 .card-container{
     width: 90%;
-    height: 15vh;
+    height: 18vh;
     background-color:snow;
     border: 1px #9e9d9d solid;
     border-radius: 2%;
@@ -10,24 +10,22 @@
     /* color: "red"*/
 }
 
-
 .avatar{
-    float: left;
-    max-width: 70%;
-    max-height: 70%;
+    align-self: center;
+    max-width: 40%;
+    max-height: 40%;
     border-radius: 50%;
-    margin-right: 5%;
     /* padding-top: 100%; */
 }
 
 .name{
     width: 100%;
-    height: 1.5rem;
-    font-size: 1.5rem;
+    height: 1.2rem;
+    font-size: 1.2rem;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.card-container .delete-btn{
+.card-body Button .delete-btn{
     background-color: red;
     width: 30%;
     height: 25%;

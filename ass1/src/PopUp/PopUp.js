@@ -63,6 +63,7 @@ class PopUp extends Component {
         return ( 
             <div className = "pop-up-container" ref={this.wrapperRef}>
                 <Button className="close" onClick = {(e) => {e.stopPropagation(); this.handleClick()}}>&times;</Button>
+                
                 <img  src = {this.state.user.avatar ? this.state.user.avatar : "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg"} alt="Not found"></img>
                 <p>{this.state.user.first_name + ' ' + this.state.user.last_name}</p>
                 <p>{this.state.user.email}</p>

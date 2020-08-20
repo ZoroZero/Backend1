@@ -182,16 +182,15 @@ class UserList extends Component {
     render() { 
         return ( 
             <div>
-                <div className = "add-user">
+                <div className = "add-user col-md-12">
                 {/* <input type="text" id="fname" name="fname" placeholder="Firstname"/>
                 <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
                 <input type="text" id="email" name="email"  placeholder="Email"/> */}
-                
                     <Button className="add-new-user-btn" onClick = {() => {document.getElementById("modal").style.display = "block";}}><b>Add new user</b></Button>
-                
+                    
                     <div id="modal" className="modal">
                         <div className="popup">
-                            <Button className="close" onClick = {() => {document.getElementById("modal").style.display = "none";}}>&times;</Button>
+                            <Button className="close-btn" onClick = {() => {document.getElementById("modal").style.display = "none";}}>&times;</Button>
                             <div className="content">
                                 <input type="text" id="fname" name="fname" placeholder="Firstname"/>
                                 <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
@@ -206,12 +205,12 @@ class UserList extends Component {
 
                 <div className="user-list-container">
                 {this.state.rows.map(row =>
-                    <div className ="Row" gutter={40}>
+                    <div className ="row container-fluid mb-4" gutter={40}>
                         {(row).map(user => 
-                            <div className ="Col"><UserCard id ={user.id} props={user} pop={this.togglePop} delete={this.handleDeleteUser}></UserCard></div>)}
+                            <div className ="col-md-3"><UserCard id ={user.id} props={user} pop={this.togglePop} delete={this.handleDeleteUser}></UserCard></div>)}
                     </div>
                 )}
-                {this.state.seen ? <div className="pop-up-screen"> <PopUp pop={this.togglePop} update={this.handleUpdateInfo} props={this.state.userList.find(user => user.id === this.state.chosen_user_id)}/> </div>: null}
+                {this.state.seen ? <div className="pop-up-screen"> <PopUp className="pop-up-container" pop={this.togglePop} update={this.handleUpdateInfo} props={this.state.userList.find(user => user.id === this.state.chosen_user_id)}/> </div>: null}
                 </div>
             </div>
          );

@@ -1,17 +1,21 @@
-.pop-up-container{
+/* .pop-up-container{
     background-color: snow;
     position: absolute;
     width: 50%;
-    height: 70%;
+    height: 100vh;
     left: 25%;
-    top: 10%;
+    top: 5%;
     z-index:2;
     display: flex;
 	align-items: center;
     justify-content: center;
     flex-direction: column;
-	padding: 0 50px;
+	padding: 0 0px;
     text-align: center;
+} */
+.pop-up-container .close{
+    display: flex;
+    align-self: center;
 }
 
 .pop-up-container img{
