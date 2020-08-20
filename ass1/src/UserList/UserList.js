@@ -8,7 +8,6 @@ class UserList extends Component {
     constructor(){
         super();
         this.state = {
-            hasGet: false,
             userList: [],
             rows: [],
             number_user: 0,
@@ -19,15 +18,20 @@ class UserList extends Component {
 
     // Get user list when mount
     componentDidMount = () =>{
+        // Get request
         axios.get("https://reqres.in/api/users").then(response =>{
+
             if(response.data.data) {
+
+                // Set userlist
                 this.setState(
                     {
-                        hasGet: true,
                         userList: response.data.data,
                         number_user: 0
                     }
                 )
+
+                //Set rows
                 var rows = []
                 for(var i = 0; i < this.state.userList.length/4; i++){
                     rows.push(this.state.userList.slice(i*4, (i+1)*4))
@@ -35,7 +39,7 @@ class UserList extends Component {
                 this.setState({
                     rows: rows
                 })
-                console.log(this.state.rows)
+                // console.log(this.state.rows)
             }
             
         })
@@ -51,6 +55,7 @@ class UserList extends Component {
 
     // Handle add user
     handleAdd = () =>{
+        // Get input
         var firstName = document.getElementById("fname").value;
         var lastName = document.getElementById("lname").value;
         var email = document.getElementById("email").value;
@@ -65,10 +70,14 @@ class UserList extends Component {
             email: email,
             avatar: avatar
         }
+
+        // Post request
         axios.post('https://reqres.in/api/users', data
         )
         .then((response) => {
             if(response.data){
+                // Log response
+                console.log("POST request")
                 console.log(response.data);
                 const newUser ={
                     id: response.data.id,
@@ -77,8 +86,8 @@ class UserList extends Component {
                     last_name: response.data.last_name,
                     avatar: response.data.avatar,
                 }
-                console.log(this.state.rows.length)
-                console.log(newUser)
+                // console.log(this.state.rows.length)
+                // console.log(newUser)
                 // Add new user
                 var newUserList = this.state.userList;
                 newUserList.push(newUser)
@@ -109,6 +118,7 @@ class UserList extends Component {
 
     // Handle update user info
     handleUpdateInfo = (id, newFirstName, newLastName, newEmail, newAvatar) => {
+        // Put request
         axios.put('https://reqres.in/api/users', {
             id: id,
             first_name: newFirstName,
@@ -118,7 +128,10 @@ class UserList extends Component {
         })
         .then((response) => {
             if(response.data){
+                // Log response
+                console.log("Update response");
                 console.log(response.data);
+                // Generate new user
                 var newData = {
                     id: response.data.id,
                     first_name: response.data.first_name,
@@ -140,7 +153,7 @@ class UserList extends Component {
                     this.setState({
                         rows: newRows
                 })
-                console.log(this.state.rows)
+                // console.log(this.state.rows)
             }
         })
         .catch(function(error) {
@@ -150,27 +163,32 @@ class UserList extends Component {
 
     // Handle delete user 
     handleDeleteUser = (id) => {
-        const data ={
+
+        // Delete request
+        axios.delete(`https://reqres.in/api/users`, {
             id: id,
-        }
-        axios.delete(`https://reqres.in/api/users`, data)
+        })
         .then((response) => {
-            console.log(response.data);
-            var newData = this.state.userList.filter(user => user.id !== id)
+                // Log response
+                console.log("Delete response");
+                console.log(response.data);
 
-            this.setState({
-                userList: newData
-            })
+                // Update user list
+                var newData = this.state.userList.filter(user => user.id !== id)
 
-            // update rows
-            var newRows = []
-                for(var i = 0; i < this.state.userList.length/4; i++){
-                    newRows.push(this.state.userList.slice(i*4, (i+1)*4))
-                }
                 this.setState({
-                    rows: newRows
-            })
-            console.log(this.state.userList)
+                    userList: newData
+                })
+
+                // update rows
+                var newRows = []
+                    for(var i = 0; i < this.state.userList.length/4; i++){
+                        newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                    }
+                    this.setState({
+                        rows: newRows
+                })
+                // console.log(this.state.userList)
         })
         .catch(function(error) {
             console.log(error);
@@ -183,9 +201,6 @@ class UserList extends Component {
         return ( 
             <div>
                 <div className = "add-user col-md-12">
-                {/* <input type="text" id="fname" name="fname" placeholder="Firstname"/>
-                <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
-                <input type="text" id="email" name="email"  placeholder="Email"/> */}
                     <Button className="add-new-user-btn" onClick = {() => {document.getElementById("modal").style.display = "block";}}><b>Add new user</b></Button>
                     
                     <div id="modal" className="modal">

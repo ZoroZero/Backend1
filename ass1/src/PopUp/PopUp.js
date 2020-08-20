@@ -13,9 +13,15 @@ class PopUp extends Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
     
-    // Add click outside handle
-    componentDidMount() {   
+    
+    componentDidMount() {  
+        // Add click outside handle 
+        // Set input text 
         document.addEventListener('mousedown', this.handleClickOutside);
+        document.getElementById("newFName").value = this.state.user.first_name;
+        document.getElementById("newLName").value = this.state.user.last_name;
+        document.getElementById("newEmail").value = this.state.user.email;
+        document.getElementById("newAvatar").value = this.state.user.avatar;
     }
 
     // Remove click outside handle
@@ -52,8 +58,7 @@ class PopUp extends Component {
             alert("Empty field detected")
             return;
         }
-        // this.props.update(this.state.user.id, firstName === ""? firstName: this.state.user.first_name, lastName === "" ? lastName: this.state.user.last_name, 
-        // email ==="" ? email: this.state.user.email);
+ 
         this.props.update(this.state.user.id, firstName, lastName, email, avatar)
         this.handleClick();
     }
@@ -80,40 +85,3 @@ class PopUp extends Component {
  
 export default PopUp;
 
-
-// import React, { useRef, useEffect } from "react";
-
-// /**
-//  * Hook that alerts clicks outside of the passed ref
-//  */
-// function useOutsideAlerter(ref) {
-//     useEffect(() => {
-//         /**
-//          * Alert if clicked on outside of element
-//          */
-//         function handleClickOutside(event) {
-//             if (ref.current && !ref.current.contains(event.target)) {
-//                 alert("You clicked outside of me!");
-//             }
-//         }
-
-//         // Bind the event listener
-//         document.addEventListener("mousedown", handleClickOutside);
-//         return () => {
-//             // Unbind the event listener on clean up
-//             document.removeEventListener("mousedown", handleClickOutside);
-//         };
-//     }, [ref]);
-// }
-
-// /**
-//  * Component that alerts if you click outside of it
-//  */
-// export default function PopUp(props) {
-//     const wrapperRef = useRef(null);
-//     useOutsideAlerter(wrapperRef);
-
-//     return <div className = "pop-up-container" ref={wrapperRef}>
-//     //                 <p>Pop up screen</p>
-//     //             </div>;
-// }
