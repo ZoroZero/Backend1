@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import UserList from './UserList/UserList';
 import './App.css';
+import { Layout } from 'antd';
+import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.css';
+const { Header, Content, Footer } = Layout;
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+      
+      <Layout className="App">
+      <Header>
+        <img src ="logo.jpg" className ="logo"></img>
+        <b>Assignment 1</b>
+      </Header>
+
+      <Content>
+        <div className = "content">
+        <UserList key ={1}></UserList>
+        </div>
+      </Content>
+
+      <Footer theme="dark">an.ngo@netpower.no</Footer>
+    </Layout>
+      
   );
 }
 
