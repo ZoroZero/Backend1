@@ -13,7 +13,6 @@ class UserCard extends Component {
             lastName: props.props.last_name,
             avatar: props.props.avatar,
         };
-        // console.log(props)
         // console.log(this.state)
     };
 
