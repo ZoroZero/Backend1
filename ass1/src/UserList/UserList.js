@@ -71,31 +71,33 @@ class UserList extends Component {
         axios.post('/users', data
         )
         .then((response) => {
-            if(response.data){
+            if(response){
                 // Log response
                 console.log("POST request")
                 console.log(response.data);
-                const newUser ={
-                    id: response.data.id,
-                    email: response.data.email,
-                    first_name: response.data.first_name,
-                    last_name: response.data.last_name,
-                    avatar: response.data.avatar,
-                }
-                // console.log(this.state.rows.length)
-                // console.log(newUser)
-                // Add new user
-                var newUserList = this.state.userList;
-                newUserList.push(newUser)
+                if(response.status === 200){
+                    let newUser ={
+                        id: response.id,
+                        first_name: firstName,
+                        last_name: lastName,
+                        email: email,
+                        avatar: avatar
+                    }
+                    // console.log(this.state.rows.length)
+                    // console.log(newUser)
+                    // Add new user
+                    var newUserList = this.state.userList;
+                    newUserList.push(newUser)
 
-                // Change row
-                var newRows = []
-                for(var i = 0; i < this.state.userList.length/4; i++){
-                    newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                    // Change row
+                    var newRows = []
+                    for(var i = 0; i < this.state.userList.length/4; i++){
+                        newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                    }
+                    this.setState({
+                        rows: newRows
+                    })
                 }
-                this.setState({
-                    rows: newRows
-                })
                 
                 // Close add window
                 //document.getElementById("modal").style.display = "none";
@@ -118,32 +120,42 @@ class UserList extends Component {
             avatar: newAvatar
         })
         .then((response) => {
-            if(response.data){
+            if(response){
                 // Log response
                 console.log("Update response");
                 console.log(response.data);
-                // Generate new user
-                // var newData = {
-                //     id: response.data.id,
-                //     first_name: response.data.first_name,
-                //     last_name: response.data.last_name,
-                //     email: response.data.email,
-                //     avatar: response.data.avatar
-                // }
-                
-                // // update data
-                // this.setState({
-                //     userList: this.state.userList.map(user => (user.id === id ? Object.assign({}, user, newData) : user))
-                // });
-                
-                // // update rows
-                // var newRows = []
-                //     for(var i = 0; i < this.state.userList.length/4; i++){
-                //         newRows.push(this.state.userList.slice(i*4, (i+1)*4))
-                //     }
-                //     this.setState({
-                //         rows: newRows
-                // })
+
+                if(response.status === 200){
+                    // Generate new user
+                    // var newData = {
+                    //     id: response.data.id,
+                    //     first_name: response.data.first_name,
+                    //     last_name: response.data.last_name,
+                    //     email: response.data.email,
+                    //     avatar: response.data.avatar
+                    // }
+                    let newData = {
+                        id: id,
+                        first_name: newFirstName,
+                        last_name: newLastName,
+                        email: newEmail,
+                        avatar: newAvatar
+                    }
+
+                    // update data
+                    this.setState({
+                        userList: this.state.userList.map(user => (user.id === id ? Object.assign({}, user, newData) : user))
+                    });
+                    
+                    // update rows
+                    var newRows = []
+                        for(var i = 0; i < this.state.userList.length/4; i++){
+                            newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                        }
+                        this.setState({
+                            rows: newRows
+                    })
+                }
                 // console.log(this.state.rows)
             }
         })
@@ -158,26 +170,31 @@ class UserList extends Component {
         // Delete request
         axios.delete(`/users/${id}`)
         .then((response) => {
+            if(response){
                 // Log response
                 console.log("Delete response");
-                console.log(response.data);
+                console.log(response);
+                if(response.status === 200){
+                    // Update user list
+                    var newData = this.state.userList.filter(user => user.id !== id)
 
-                // Update user list
-                // var newData = this.state.userList.filter(user => user.id !== id)
+                    this.setState({
+                        userList: newData
+                    })
 
-                // this.setState({
-                //     userList: newData
-                // })
+                    // update rows
+                    var newRows = []
+                        for(var i = 0; i < this.state.userList.length/4; i++){
+                            newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                        }
+                        this.setState({
+                            rows: newRows
+                    })
+                    // console.log(this.state.userList)
+                }
+            }
 
-                // // update rows
-                // var newRows = []
-                //     for(var i = 0; i < this.state.userList.length/4; i++){
-                //         newRows.push(this.state.userList.slice(i*4, (i+1)*4))
-                //     }
-                //     this.setState({
-                //         rows: newRows
-                // })
-                // console.log(this.state.userList)
+                
         })
         .catch(function(error) {
             console.log(error);
