@@ -19,7 +19,7 @@ class UserList extends Component {
     // Get user list when mount
     componentDidMount = () =>{
         // Get request
-        axios.get("https://reqres.in/api/users").then(response =>{
+        axios.get("/users").then(response =>{
 
             if(response.data.data) {
 
@@ -54,12 +54,8 @@ class UserList extends Component {
     };
 
     // Handle add user
-    handleAdd = () =>{
+    handleAdd = (firstName, lastName, email, avatar) =>{
         // Get input
-        var firstName = document.getElementById("fname").value;
-        var lastName = document.getElementById("lname").value;
-        var email = document.getElementById("email").value;
-        var avatar = document.getElementById("avatar").value;
         if(firstName === "" || lastName === "" || email === ""){
             alert("Empty field");
             return;
@@ -72,42 +68,39 @@ class UserList extends Component {
         }
 
         // Post request
-        axios.post('https://reqres.in/api/users', data
+        axios.post('/users', data
         )
         .then((response) => {
-            if(response.data){
+            if(response){
                 // Log response
                 console.log("POST request")
                 console.log(response.data);
-                const newUser ={
-                    id: response.data.id,
-                    email: response.data.email,
-                    first_name: response.data.first_name,
-                    last_name: response.data.last_name,
-                    avatar: response.data.avatar,
-                }
-                // console.log(this.state.rows.length)
-                // console.log(newUser)
-                // Add new user
-                var newUserList = this.state.userList;
-                newUserList.push(newUser)
+                if(response.status === 200){
+                    let newUser ={
+                        id: response.id,
+                        first_name: firstName,
+                        last_name: lastName,
+                        email: email,
+                        avatar: avatar
+                    }
+                    // console.log(this.state.rows.length)
+                    // console.log(newUser)
+                    // Add new user
+                    var newUserList = this.state.userList;
+                    newUserList.push(newUser)
 
-                // Change row
-                var newRows = []
-                for(var i = 0; i < this.state.userList.length/4; i++){
-                    newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                    // Change row
+                    var newRows = []
+                    for(var i = 0; i < this.state.userList.length/4; i++){
+                        newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                    }
+                    this.setState({
+                        rows: newRows
+                    })
                 }
-                this.setState({
-                    rows: newRows
-                })
                 
-                // Clear input
-                document.getElementById("fname").value = "";
-                document.getElementById("lname").value = "";
-                document.getElementById("email").value = "";
-                document.getElementById("avatar").value = "";
                 // Close add window
-                document.getElementById("modal").style.display = "none";
+                //document.getElementById("modal").style.display = "none";
             }
         })
         .catch(function(error) {
@@ -119,7 +112,7 @@ class UserList extends Component {
     // Handle update user info
     handleUpdateInfo = (id, newFirstName, newLastName, newEmail, newAvatar) => {
         // Put request
-        axios.put('https://reqres.in/api/users', {
+        axios.put('/users', {
             id: id,
             first_name: newFirstName,
             last_name: newLastName,
@@ -127,32 +120,42 @@ class UserList extends Component {
             avatar: newAvatar
         })
         .then((response) => {
-            if(response.data){
+            if(response){
                 // Log response
                 console.log("Update response");
                 console.log(response.data);
-                // Generate new user
-                var newData = {
-                    id: response.data.id,
-                    first_name: response.data.first_name,
-                    last_name: response.data.last_name,
-                    email: response.data.email,
-                    avatar: response.data.avatar
-                }
-                
-                // update data
-                this.setState({
-                    userList: this.state.userList.map(user => (user.id === id ? Object.assign({}, user, newData) : user))
-                });
-                
-                // update rows
-                var newRows = []
-                    for(var i = 0; i < this.state.userList.length/4; i++){
-                        newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+
+                if(response.status === 200){
+                    // Generate new user
+                    // var newData = {
+                    //     id: response.data.id,
+                    //     first_name: response.data.first_name,
+                    //     last_name: response.data.last_name,
+                    //     email: response.data.email,
+                    //     avatar: response.data.avatar
+                    // }
+                    let newData = {
+                        id: id,
+                        first_name: newFirstName,
+                        last_name: newLastName,
+                        email: newEmail,
+                        avatar: newAvatar
                     }
+
+                    // update data
                     this.setState({
-                        rows: newRows
-                })
+                        userList: this.state.userList.map(user => (user.id === id ? Object.assign({}, user, newData) : user))
+                    });
+                    
+                    // update rows
+                    var newRows = []
+                        for(var i = 0; i < this.state.userList.length/4; i++){
+                            newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                        }
+                        this.setState({
+                            rows: newRows
+                    })
+                }
                 // console.log(this.state.rows)
             }
         })
@@ -165,30 +168,33 @@ class UserList extends Component {
     handleDeleteUser = (id) => {
 
         // Delete request
-        axios.delete(`https://reqres.in/api/users`, {
-            id: id,
-        })
+        axios.delete(`/users/${id}`)
         .then((response) => {
+            if(response){
                 // Log response
                 console.log("Delete response");
-                console.log(response.data);
+                console.log(response);
+                if(response.status === 200){
+                    // Update user list
+                    var newData = this.state.userList.filter(user => user.id !== id)
 
-                // Update user list
-                var newData = this.state.userList.filter(user => user.id !== id)
-
-                this.setState({
-                    userList: newData
-                })
-
-                // update rows
-                var newRows = []
-                    for(var i = 0; i < this.state.userList.length/4; i++){
-                        newRows.push(this.state.userList.slice(i*4, (i+1)*4))
-                    }
                     this.setState({
-                        rows: newRows
-                })
-                // console.log(this.state.userList)
+                        userList: newData
+                    })
+
+                    // update rows
+                    var newRows = []
+                        for(var i = 0; i < this.state.userList.length/4; i++){
+                            newRows.push(this.state.userList.slice(i*4, (i+1)*4))
+                        }
+                        this.setState({
+                            rows: newRows
+                    })
+                    // console.log(this.state.userList)
+                }
+            }
+
+                
         })
         .catch(function(error) {
             console.log(error);
@@ -201,20 +207,8 @@ class UserList extends Component {
         return ( 
             <div>
                 <div className = "add-user col-md-12">
-                    <Button className="add-new-user-btn" onClick = {() => {document.getElementById("modal").style.display = "block";}}><b>Add new user</b></Button>
-                    
-                    <div id="modal" className="modal">
-                        <div className="popup">
-                            <Button className="close-btn" onClick = {() => {document.getElementById("modal").style.display = "none";}}>&times;</Button>
-                            <div className="content">
-                                <input type="text" id="fname" name="fname" placeholder="Firstname"/>
-                                <input type="text" id="lname" name="lname"  placeholder="Lastname"/>
-                                <input type="text" id="email" name="email"  placeholder="Email"/>
-                                <input type="text" id="avatar" name="avatar"  placeholder="Avatar link"/>
-                                <Button className="add-user-btn" onClick={this.handleAdd} href="#">Add</Button>
-                            </div>
-                        </div>
-                    </div>
+                    {/* <Button className="add-new-user-btn" onClick = {() => {document.getElementById("modal").style.display = "block";}}><b>Add new user</b></Button> */}
+                    <Button className="add-new-user-btn" onClick = {() => {this.togglePop(-1)}}><b>Add new user</b></Button>
                 </div> 
 
 
@@ -225,7 +219,7 @@ class UserList extends Component {
                             <div className ="col-md-3"><UserCard id ={user.id} props={user} pop={this.togglePop} delete={this.handleDeleteUser}></UserCard></div>)}
                     </div>
                 )}
-                {this.state.seen ? <div className="pop-up-screen"> <PopUp className="pop-up-container" pop={this.togglePop} update={this.handleUpdateInfo} props={this.state.userList.find(user => user.id === this.state.chosen_user_id)}/> </div>: null}
+                {this.state.seen ? <div className="pop-up-screen"> <PopUp className="pop-up-container" pop={this.togglePop} update={this.handleUpdateInfo} add={this.handleAdd} user={this.state.chosen_user_id===-1? null: this.state.userList.find(user => user.id === this.state.chosen_user_id)}/> </div>: null}
                 </div>
             </div>
          );
